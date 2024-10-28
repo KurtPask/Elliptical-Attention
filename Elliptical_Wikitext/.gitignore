@@ -1,0 +1,4 @@
+lmtool-fwms/data/
+lmtool-fwms/saved_models/
+lmtool-fwms/wandb/
+lmtool-fwms/.nfs*

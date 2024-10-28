@@ -1,0 +1,2 @@
+CUDA_VISIBLE_DEVICES=3 python3 run_tasks.py --model softmax --M-positions 1 --task retrieval --show-M \
+--downsample-size 0.25 --job_name M1-Wmaxscale-overlayers2-att1e-2 --seed 1111 --use_wandb --over-layers --attenuation 1e-2 \

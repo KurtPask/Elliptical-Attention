@@ -1,0 +1,8 @@
+Evaluating with bsz 1 tgt_len 256 ext_len 0 mem_len 0 clamp_len -1 using a sliding window.
+Evaluating with bsz 1 tgt_len 256 ext_len 0 mem_len 0 clamp_len -1 using a sliding window.
+Evaluating with bsz 1 tgt_len 256 ext_len 0 mem_len 0 clamp_len -1 using a sliding window.
+245568 positions evaluated.
+Time : 34718.44s, 141.53ms/segment
+====================================================================================================
+| test loss  9.41 | test ppl 12237.985 
+====================================================================================================

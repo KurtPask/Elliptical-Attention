@@ -1,0 +1,10 @@
+torch
+click
+numpy
+einops
+python-hostlist
+tqdm
+requests
+pyyaml
+mmcv==1.3.8
+mmsegmentation==0.14.1

@@ -1,0 +1,10 @@
+__pycache__/
+wandb/
+scripts/output/
+scripts/aa/
+scripts/aa-indi/
+scripts/aa-indi-ell/
+scripts/output/
+scripts/wandb/
+autoattack/
+scripts/summary.csv

@@ -1,0 +1,5 @@
+PrimalFormer/saved_models/
+PrimalFormer/wandb/
+PrimalFormer/.nfs*
+PrimalFormer/logs/
+PrimalFormer/__pycache__/
