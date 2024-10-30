@@ -299,7 +299,7 @@ class MahalaAttention(nn.Module):
             
             QW = head_q @ W # [bsize x nhead x qlen x dhead]
             #attn_score = torch.einsum('ibnd,jbnd->ijbn', (QW, head_k))
-            attn_score = QW @ head_k.transpose(-2,-1) #* self.scale # [bsize x nhead x qlen x klen]
+            attn_score = QW @ head_k.transpose(-2,-1) * self.scale # [bsize x nhead x qlen x klen]
 
         else: # normal attention computation
             attn_score = head_q @ head_k.transpose(-2,-1) * self.scale
