@@ -6,13 +6,13 @@ See the paper
 
 ## Find the corresponding subdirectory for each set of experiments as follows:
 
-- ImageNet Image Classification -> 'Elliptical_ImageNet'
-- WikiText-103 Language Modeling -> 'Elliptical_Wikitext'
-- Long Range Arena benchmark -> 'Elliptical_LRA'
-- ADE20K Segmentation -> 'Elliptical_segmentation'
-- ImageNet adversarial attack with the FAN backbone -> 'Elliptical_FAN'
-- ImageNet adversarial attack -> 'Elliptical_ImAttack'
-- Robust Language Modeling with WordAttack -> 'Elliptical_wordattack'
+- [ImageNet Image Classification with DeiT backbones](ImageNet/)
+- [WikiText-103 Language Modeling](Wikitext/)
+- [Long Range Arena benchmark](LRA/)
+- [ADE20K Image Segmentation](ADE20K/)
+- [ImageNet Image Classificaition with Fully Attentional Network + adversarial attack](FAN/)
+- [ImageNet Image Classification with DeiT backbones + adversarial attack](ImageAttack/)
+- [Robust Language Modeling with WordAttack](WordAttack/)
 
 Check the README in each subdirectory for instructions specific to that set of experiments.
 
