@@ -17,7 +17,8 @@ In `.src/fourier_layer-extension`, run `python setup_cuda.py install` to compile
 
 ### Training
 
-Run following commands to reproduce our results for WikiText-103 language modeling. To change the setting of R from scalar to vector, you can comment line 114 and uncomment line 113 in our `mem_transformer.py`
+Run following commands to reproduce our results for WikiText-103 language modeling. To change the setting of R from scalar to vector, you can comment line 114 and uncomment line 113 in our `mem_transformer.py`.  
+We also added **tropical attention** (`attn_type 300`). Example scripts for this option are `run_tropical_small.sh` and `run_tropical_med.sh`.
 
 Softmax (small)
 ```
@@ -36,5 +37,15 @@ CUDA_VISIBLE_DEVICES=0,1 python ./src/train.py --cuda --data ./data/wikitext-103
 
 Fourier (medium)
 ```
-CUDA_VISIBLE_DEVICES=0,1 python ./src/train.py --cuda --data ./data/wikitext-103/ --dataset wt103 --adaptive --n_layer 16 --d_model 256 --n_head 8 --d_head 32 --d_inner 2048 --dropout 0.1 --dropatt 0.0 --optim adam --lr 0.00025 --warmup_step 2000 --max_step 400000 --attn_type 203 --tgt_len 384 --mem_len 0 --eval_tgt_len 384 --batch_size 56 --multi_gpu --use_wandb --project_name 'fourierformer' --seed 1111 --job_name fourier-seed_1111 --work_dir ./fourier-seed_1111 
+CUDA_VISIBLE_DEVICES=0,1 python ./src/train.py --cuda --data ./data/wikitext-103/ --dataset wt103 --adaptive --n_layer 16 --d_model 256 --n_head 8 --d_head 32 --d_inner 2048 --dropout 0.1 --dropatt 0.0 --optim adam --lr 0.00025 --warmup_step 2000 --max_step 400000 --attn_type 203 --tgt_len 384 --mem_len 0 --eval_tgt_len 384 --batch_size 56 --multi_gpu --use_wandb --project_name 'fourierformer' --seed 1111 --job_name fourier-seed_1111 --work_dir ./fourier-seed_1111
+```
+
+Tropical (small)
+```
+bash run_tropical_small.sh
+```
+
+Tropical (medium)
+```
+bash run_tropical_med.sh
 ```
