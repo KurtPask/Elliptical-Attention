@@ -57,6 +57,10 @@ class TropicalMultiHeadAttn(nn.Module):
         head_q = self.q_net(h)
         head_k, head_v = torch.chunk(self.kv_net(c), 2, dim=-1)
 
+        head_q = self.normalize_tropical(torch.log1p(F.relu(head_q)))
+        head_k = self.normalize_tropical(torch.log1p(F.relu(head_k)))
+        head_v = self.normalize_tropical(torch.log1p(F.relu(head_v)))
+
         head_q = head_q.view(h.size(0), h.size(1), self.n_head, self.d_head)
         head_k = head_k.view(c.size(0), c.size(1), self.n_head, self.d_head)
         head_v = head_v.view(c.size(0), c.size(1), self.n_head, self.d_head)
@@ -70,10 +74,6 @@ class TropicalMultiHeadAttn(nn.Module):
         q = q.reshape(B * self.n_head, S_q, self.d_head)
         k = k.reshape(B * self.n_head, S_k, self.d_head)
         v = v.reshape(B * self.n_head, S_k, self.d_head)
-
-        q = self.normalize_tropical(torch.log1p(F.relu(q)))
-        k = self.normalize_tropical(torch.log1p(F.relu(k)))
-        v = self.normalize_tropical(torch.log1p(F.relu(v)))
 
         q = self.q_trop(q)
         k = self.k_trop(k)
