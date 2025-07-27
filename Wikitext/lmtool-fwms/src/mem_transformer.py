@@ -9,6 +9,7 @@ from utils.performer_helper import prime, draw_orthogonal_random_matrix
 from utils.fast_weight import StepWiseLinearTransformerLayer
 from utils.fast_weight import StepWiseDPFPLinearTransformerLayer
 from utils.fast_weight import DebugStepWiseLinearTransformerLayer
+from tropical_attn import TropicalMultiHeadAttn
 # from utils.cuda_fast_weight_layer import CudaFastWeightLinearTransformerLayer
 # from utils.cuda_fast_weight_layer import CudaFastWeightPerformerLayer
 # from utils.cuda_fast_weight_layer import CudaFastWeightSumLinearTransformerLayer
@@ -1149,6 +1150,9 @@ class DecoderLayer(nn.Module):
             attn_func = StepWiseDPFPLinearTransformerLayer
         elif attn_type == 10:
             attn_func = DebugStepWiseLinearTransformerLayer
+        elif attn_type == 300:
+            from tropical_attn import TropicalMultiHeadAttn
+            attn_func = TropicalMultiHeadAttn
         # elif attn_type == 24:
         #     attn_func = CudaFastWeightLinearTransformerLayer
         # elif attn_type == 26:
@@ -1408,8 +1412,18 @@ class MemTransformerLM(nn.Module):
                         DecoderLayer(
                             n_head, d_model, d_head, d_inner, dropout,
                             dropatt=dropatt, pre_lnorm=pre_lnorm,
-                            attn_type=attn_type, M = False, show_M = False, over_layers = over_layers)
+                        attn_type=attn_type, M = False, show_M = False, over_layers = over_layers)
                     )
+
+
+        elif attn_type in [300]:  # tropical attention
+            for i in range(n_layer):
+                self.layers.append(
+                    DecoderLayer(
+                        n_head, d_model, d_head, d_inner, dropout,
+                        dropatt=dropatt, pre_lnorm=pre_lnorm,
+                        attn_type=attn_type)
+                )
 
         
         elif attn_type in [200, 201, 202]:  # absolute embeddings
@@ -1537,7 +1551,7 @@ class MemTransformerLM(nn.Module):
                                 10, 14, 16,
                                 24, 25, 26,
                                 34, 35,
-                                44, 45, 46, 200, 201, 202, 203, 204, 205]:
+                                44, 45, 46, 200, 201, 202, 203, 204, 205, 300]:
             # standard absolute pos
             self.pos_emb = PositionalEmbedding(self.d_model)
 
@@ -1648,7 +1662,7 @@ class MemTransformerLM(nn.Module):
                     dec_attn_mask=dec_attn_mask, mems=mems_i)
                 hids.append(core_out)
 
-        elif self.attn_type in [2, 4, 5, 6, 7, 10, 14, 16, 200, 201, 202, 203, 204, 205]:  # absolute
+        elif self.attn_type in [2, 4, 5, 6, 7, 10, 14, 16, 200, 201, 202, 203, 204, 205, 300]:  # absolute
             if self.no_pos:
                 core_out = self.drop(word_emb)
             else:
